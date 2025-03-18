@@ -1,0 +1,114 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+struct Member {
+    int id;
+    string name;
+    int age;
+    string membershipType;
+};
+
+// Global vector to store members
+vector<Member> members;
+
+// Function to add a new member
+void addMember() {
+    Member newMember;
+    cout << "Enter Member ID: ";
+    cin >> newMember.id;
+    cout << "Enter Name: ";
+    cin >> newMember.name;
+    cout << "Enter Age: ";
+    cin >> newMember.age;
+    cout << "Enter Membership Type (Basic/Premium/VIP): ";
+    cin >> newMember.membershipType;
+    
+    members.push_back(newMember);
+    cout << "Member Added Successfully!\n";
+}
+
+// Function to display all members
+void displayMembers() {
+    if (members.empty()) {
+        cout << "No Members Found!\n";
+        return;
+    }
+    
+    cout << "\nGym Members List:\n";
+    for (const auto &member : members) {
+        cout << "ID: " << member.id << ", Name: " << member.name 
+             << ", Age: " << member.age << ", Membership: " << member.membershipType << endl;
+    }
+}
+
+// Function to delete a member
+void deleteMember() {
+    int id;
+    cout << "Enter Member ID to Delete: ";
+    cin >> id;
+
+    for (auto it = members.begin(); it != members.end(); ++it) {
+        if (it->id == id) {
+            members.erase(it);
+            cout << "Member Deleted Successfully!\n";
+            return;
+        }
+    }
+    cout << "Member Not Found!\n";
+}
+
+// Function to search for a member
+void searchMember() {
+    int id;
+    cout << "Enter Member ID to Search: ";
+    cin >> id;
+
+    for (const auto &member : members) {
+        if (member.id == id) {
+            cout << "Member Found!\n";
+            cout << "ID: " << member.id << ", Name: " << member.name 
+                 << ", Age: " << member.age << ", Membership: " << member.membershipType << endl;
+            return;
+        }
+    }
+    cout << "Member Not Found!\n";
+}
+
+// Main function with menu
+int main() {
+    string choice;
+    do {
+        cout << "\n===== Gym Membership Management System =====\n";
+        cout << "1. Add Member\n";
+        cout << "2. Display All Members\n";
+        cout << "3. Search Member\n";
+        cout << "4. Delete Member\n";
+        cout << "5. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+        
+        if (choice == "1"){
+        	addMember();
+		}
+        else if (choice == "2"){
+        	displayMembers();
+		}
+		else if (choice == "3"){
+			searchMember();
+		}
+		else if (choice == "4"){
+			deleteMember();
+		}
+		else if (choice == "5"){
+			cout << "Exiting Program...\n";
+		}
+		else{
+			cout << "Invalid Choice! Try Again.\n";
+		}
+
+    } while (choice != "5");
+
+    return 0;
+}
